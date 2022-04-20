@@ -17,9 +17,10 @@ const winningMessageElement = document.getElementById('winnerMessage')
 
 const cellElements = document.querySelectorAll('[data-cell]')
 const board = document.getElementById('gameBoard')
-
-
+const turner = document.getElementById('turn-name')
+let circleTurn
 startGame();
+
 
 restartButton.addEventListener('click', startGame)
 
@@ -63,6 +64,11 @@ function placeMark(cell, currentClass) {
 
 function swapTurns() {
     circleTurn = !circleTurn
+    if (circleTurn == true) {
+        turner.innerText = "O's turn!"
+    } else {
+        turner.innerText = "X's turn!"
+    }
 }
 
 function setBoardHoverClass() {
