@@ -8,7 +8,8 @@ const WINNING_COMBINATIONS = [
     [0, 3, 6],
     [1, 4, 7],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
+    [2, 5, 8]
 ]
 
 const winningMessageTextElement = document.querySelector('[data-winner-text]')
@@ -16,7 +17,7 @@ const winningMessageElement = document.getElementById('winnerMessage')
 
 const cellElements = document.querySelectorAll('[data-cell]')
 const board = document.getElementById('gameBoard')
-let circleTurn
+
 
 startGame();
 
