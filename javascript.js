@@ -149,7 +149,7 @@ function endGame(draw) {
     }
     winningMessageElement.classList.add('show')
 }
-
+/*
 slowButton.addEventListener('click', function(){
     
     document.getElementById("slowButton").disabled = true;
@@ -161,6 +161,7 @@ slowButton.addEventListener('click', function(){
      }
      
 })
+
 mediumButton.addEventListener('click', function(){
     document.getElementById("slowButton").disabled = true;
     document.getElementById("mediumButton").disabled = true;
@@ -170,9 +171,12 @@ mediumButton.addEventListener('click', function(){
         task(i);   
      }
 })
+*/
 fastButton.addEventListener('click', function(){
+    /*
     document.getElementById("slowButton").disabled = true;
     document.getElementById("mediumButton").disabled = true;
+    */
     document.getElementById("fastButton").disabled = true;
     speed = 250
     for (let i=0; i<9; i++) {
@@ -181,8 +185,10 @@ fastButton.addEventListener('click', function(){
      
 })
   restartButton.addEventListener('click', function(){
+    /*
     document.getElementById("slowButton").disabled = false;
     document.getElementById("mediumButton").disabled = false;
+    */
     document.getElementById("fastButton").disabled = false;
     ALL_SPOTS = [
         0, 1, 2, 
