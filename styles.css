@@ -4,6 +4,8 @@
 
 body {
     margin: 0;
+    width: 100vw;
+    height: 100vh;
 }
 
 :root {
@@ -12,8 +14,7 @@ body {
 }
 
 .gameBoard {
-    width: 100vw;
-    height: 100vh;
+    
     display: grid;
     justify-content: center;
     align-content: center;
