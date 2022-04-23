@@ -153,4 +153,24 @@ body {
     display: flex;
     justify-content: center;
     font-weight: 700;
+    margin-top: 100px;
+}
+
+.speedButtons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 20px;
+    
+}
+
+button {
+    font-size: 50px;
+}
+
+
+#info-text {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
 }

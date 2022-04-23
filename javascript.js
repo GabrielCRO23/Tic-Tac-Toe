@@ -1,7 +1,21 @@
 let X_CLASS = 'x'
 let CIRCLE_CLASS = 'circle'
 let currentClass = X_CLASS
+let circleTurn;
+let removedValue; 
+let speed = 1000;
+
+const winningMessageTextElement = document.querySelector('[data-winner-text]')
+const winningMessageElement = document.getElementById('winnerMessage')
+const cellElements = document.querySelectorAll('[data-cell]')
+const board = document.getElementById('gameBoard')
+const turner = document.getElementById('turn-name')
+
 const restartButton = document.getElementById('restartButton')
+const slowButton = document.querySelector('#slowButton')
+const mediumButton = document.querySelector('#mediumButton')
+const fastButton = document.querySelector('#fastButton')
+
 const CELL_1 = document.getElementById('1')
 const CELL_2 = document.getElementById('2')
 const CELL_3 = document.getElementById('3')
@@ -23,14 +37,14 @@ const WINNING_COMBINATIONS = [
     [2, 5, 8]
 ]
 
-const ALL_SPOTS = [
+let ALL_SPOTS = [
     0, 1, 2, 
     3, 4, 5, 
     6, 7, 8 
 ]
 
 
-let removedValue; // The empty array which will have a random spot on the board pushed into it.
+
 
 function removeAvailableSpot() {
 
@@ -40,54 +54,41 @@ function removeAvailableSpot() {
     return removedValue
 }
 
-
-
 function returnNumber() {
-    setInterval(1000)
     const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
     removeAvailableSpot();
      let newSpot = removedValue
-    if (newSpot == 0) {
+     if (checkWin(currentClass) == true) {
+         return; // This stops the function if the game has ended
+  } else if (newSpot == 0) {
         cell = CELL_1
         placeMark(cell, currentClass)
-        
     } else if (newSpot == 1) {
         cell = CELL_2
         placeMark(cell, currentClass)
-        
     } else if (newSpot == 2) {
         cell = CELL_3
         placeMark(cell, currentClass)
-        
     } else if (newSpot == 3) {
         cell = CELL_4
         placeMark(cell, currentClass)
-        
     } else if (newSpot == 4) {
         cell = CELL_5
         placeMark(cell, currentClass)
-        
     } else if (newSpot == 5) {
         cell = CELL_6
         placeMark(cell, currentClass)
-        
     } else if (newSpot == 6) {
         cell = CELL_7
         placeMark(cell, currentClass)
-        
     } else if (newSpot == 7) {
         cell = CELL_8
         placeMark(cell, currentClass)
-        
     } else if (newSpot == 8) {
         cell = CELL_9
         placeMark(cell, currentClass)
-        
     }
-   
-   
 }
-
 
 function playAutomatedGame() {
     const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
@@ -103,56 +104,6 @@ function playAutomatedGame() {
     }
 }
 
-
-
-const winningMessageTextElement = document.querySelector('[data-winner-text]')
-const winningMessageElement = document.getElementById('winnerMessage')
-
-const cellElements = document.querySelectorAll('[data-cell]')
-const board = document.getElementById('gameBoard')
-const turner = document.getElementById('turn-name')
-let circleTurn
-/*
-startGame();
-
-
-restartButton.addEventListener('click', startGame)
-
-*/
-/*
-function startGame() {
-    circleTurn = false;
-    cellElements.forEach(cell => {
-        cell.classList.remove(X_CLASS)
-        cell.classList.remove(CIRCLE_CLASS)
-        cell.removeEventListener('click', handleClick)
-        cell.addEventListener('click', handleClick, { once : true })
-    })
-    setBoardHoverClass()
-    winningMessageElement.classList.remove('show')
-}
-*/
-
-/*
-function handleClick(e) {
-    const cell = e.target
-    const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
-    placeMark(cell, currentClass)
-    if (checkWin(currentClass)) {
-        endGame(false)
-    } else if (isDraw()) {
-        endGame(true)
-    } else {
-        swapTurns()
-        setBoardHoverClass()
-    }
-}
-*/
-
-
-
-
-
 function isDraw() {
     return [...cellElements].every(cell => {
         return cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
@@ -162,8 +113,6 @@ function isDraw() {
 function placeMark(cell, currentClass) {
     cell.classList.add(currentClass)
 }
-
-
 
 function swapTurns() {
     circleTurn = !circleTurn
@@ -192,8 +141,6 @@ function checkWin(currentClass) {
     })
 }
 
-
-
 function endGame(draw) {
     if (draw) {
         winningMessageTextElement.innerText = 'Draw!'
@@ -203,39 +150,60 @@ function endGame(draw) {
     winningMessageElement.classList.add('show')
 }
 
-/*
-setTimeout(returnNumber, 1000)
-setTimeout(returnNumber, 2000)
-setTimeout(returnNumber, 3000)
-setTimeout(returnNumber, 4000)
-setTimeout(returnNumber, 5000)
-setTimeout(returnNumber, 7000)
-setTimeout(returnNumber, 8000)
-setTimeout(returnNumber, 9000)
-*/
+slowButton.addEventListener('click', function(){
+    
+    document.getElementById("slowButton").disabled = true;
+    document.getElementById("mediumButton").disabled = true;
+    document.getElementById("fastButton").disabled = true;
+    speed = 2000
+    for (let i=0; i<9; i++) {
+        task(i);   
+     }
+     
+})
+mediumButton.addEventListener('click', function(){
+    document.getElementById("slowButton").disabled = true;
+    document.getElementById("mediumButton").disabled = true;
+    document.getElementById("fastButton").disabled = true;
+    speed = 1000
+    for (let i=0; i<9; i++) {
+        task(i);   
+     }
+})
+fastButton.addEventListener('click', function(){
+    document.getElementById("slowButton").disabled = true;
+    document.getElementById("mediumButton").disabled = true;
+    document.getElementById("fastButton").disabled = true;
+    speed = 250
+    for (let i=0; i<9; i++) {
+        task(i);   
+     }
+     
+})
+  restartButton.addEventListener('click', function(){
+    document.getElementById("slowButton").disabled = false;
+    document.getElementById("mediumButton").disabled = false;
+    document.getElementById("fastButton").disabled = false;
+    ALL_SPOTS = [
+        0, 1, 2, 
+        3, 4, 5, //After a game is played - the ALL_SPOTS array is left empty. This refills it.
+        6, 7, 8 
+    ]
+    circleTurn = false;
+    cellElements.forEach(cell => {
+        cell.classList.remove(X_CLASS)
+        cell.classList.remove(CIRCLE_CLASS)
+    })
+    
+    winningMessageElement.classList.remove('show')
+    turner.innerText = ''
+    
+})
 
-
-
-/*
-  
-  for (let i = 1; i < 10; i++) {
-    setInterval(returnNumber(), 1000);
-}
-*/
-
-
-
-for (let i=0; i<9; i++) { 
-    task(i);
- }
-   
- function task(i) {
-   setTimeout(function() {
-       playAutomatedGame()
-   }, 1000 * i);
-
- }
- 
-
+function task(i) {
+    setTimeout(function() {
+     playAutomatedGame()
+    }, speed * i);
+  }
 
 
